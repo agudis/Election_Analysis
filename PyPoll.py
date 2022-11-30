@@ -59,6 +59,21 @@ with open(file_to_load) as election_data:
 
         #Add a vote to that canddiate's count. 
         candidate_votes[candidate_name] += 1
+
+with open(file_to_save, "w") as txt_file:
+
+    # Print the final vote count to the terminal. 
+    election_results = (
+        f'\nElection Results\n'
+        f'-------------------------\n'
+        f'Total Votes: {total_votes:,}\n'
+        f'-------------------------\n')
+
+    print(election_results, end="")
+
+    # Save the final vote count to the text file. 
+
+    txt_file.write(election_results)
     
     #Determine the percentage of votes for each candidate by looping through the counts. 
 
@@ -72,7 +87,16 @@ with open(file_to_load) as election_data:
         vote_percentage = float(votes)/float(total_votes) * 100 
 
         # 4. Print candidate name, vote count and percentage of vote. 
-        print(f'{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n')
+        # print(f'{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n')
+
+        candidate_results = (
+            f'{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n')
+
+        # Print candidate results.
+        print (candidate_results)
+
+        # Save the candidate results to our text file. 
+        txt_file.write(candidate_results)
 
         # Determine winning vote count and candidate. 
 
@@ -86,7 +110,6 @@ with open(file_to_load) as election_data:
             winning_percentage = vote_percentage
 
             # 3. Set the winning_count = candidate name 
-
             winning_candidate = candidate_name
 
     # Print the winning Candidate.  
@@ -98,8 +121,11 @@ with open(file_to_load) as election_data:
         f'Winnig Percentage: {winning_percentage:.1f}%\n'
         f'----------------------------\n')
 
-    print(winning_candidate_summary)
-    
+    # print(winning_candidate_summary)
+    print (winning_candidate_summary)
 
-#Close the file. 
-election_data.close 
+    #Save the winning canddiate's name to the text file. 
+    txt_file.write (winning_candidate_summary)
+
+    #Close the file. 
+    election_data.close 
